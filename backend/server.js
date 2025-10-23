@@ -69,6 +69,26 @@ app.use("/api/blogs", blogRoutes)
 app.use("/api/portfolios", portfolioRoutes)
 app.use("/api/notifications", notificationRoutes)
 
+// Root route
+app.get("/", (req, res) => {
+  res.json({ 
+    message: "Portfolio Backend API",
+    status: "running",
+    version: "1.0.0",
+    endpoints: {
+      health: "/api/health",
+      auth: "/api/auth",
+      students: "/api/students",
+      projects: "/api/projects",
+      skills: "/api/skills",
+      courses: "/api/courses",
+      blogs: "/api/blogs",
+      portfolios: "/api/portfolios",
+      notifications: "/api/notifications"
+    }
+  })
+})
+
 // Health check
 app.get("/api/health", (req, res) => {
   res.json({ 
