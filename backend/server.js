@@ -92,6 +92,11 @@ app.get("/", (req, res) => {
   })
 })
 
+// Favicon route
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end()
+})
+
 // Health check
 app.get("/api/health", (req, res) => {
   res.json({ 
