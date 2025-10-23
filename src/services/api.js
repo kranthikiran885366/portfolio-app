@@ -1,4 +1,5 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || "https://portfolio-app-1-iv35.onrender.com/api"
+console.log('API_BASE_URL:', API_BASE_URL)
 
 // Request interceptor for loading states
 let activeRequests = new Set()
