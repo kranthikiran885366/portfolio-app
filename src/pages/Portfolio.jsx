@@ -1,35 +1,84 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import api from "../services/api";
 import "./Portfolio.css";
 
-const portfolioItems = [
-  { id: 1, title: "Pointer Pointer", author: "", img: "/images/pointer pointer.jpg"},
-  { id: 2, title: "Neal.fun", author: "", img: "/images/Neal-fun.jpg" },
-  { id: 3, title: "AutoDraw", author: "", img: "/images/Auto Draw.jpg" },
-  { id: 4, title: "Patatap", author: "", img: "/images/patatap.jpg" },
-  { id: 5, title: "2048 Game", author: "", img: "/images/2048 Game.jpg" },
-  { id: 6, title: "FutureMe", author: "", img: "/images/Futureme.jpg"},
-  { id: 7, title: "Omni Calculator", author: "", img: "/images/omnicalculator.jpg"},
-  { id: 8, title: "Adobe Portfolio", author: "", img: "images/Adobeportfolio.jpg"},
-  { id: 9, title: "Behance", author: "", img: "images/Behance.jpg"},
-  { id: 10, title: "Carbonmade", author: "", img: "images/Carbonmade.jpg"},
-  { id: 11, title: "Dribble", author: "", img: "images/Dribble.jpg" },
-  { id: 12, title: "Zoom Quilt", author: "", img: "images/portfolio.jpg" },
-  
-];
-
 function Portfolio() {
+  const [portfolios, setPortfolios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('all');
+
+  useEffect(() => {
+    fetchPortfolios();
+  }, []);
+
+  const fetchPortfolios = async () => {
+    try {
+      const response = await api.get('/projects');
+      setPortfolios(response.data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredPortfolios = portfolios.filter(item => 
+    filter === 'all' || item.category === filter
+  );
+
+  const categories = ['all', ...new Set(portfolios.map(p => p.category))];
+
+  if (loading) {
+    return <div className="loading">Loading portfolios...</div>;
+  }
+
   return (
     <div className="portfolio">
-      <h1>Portfolio Websites</h1>
+      <div className="portfolio-header">
+        <h1>My Portfolio</h1>
+        <p>Showcasing my latest projects and creative work</p>
+      </div>
+      
+      <div className="portfolio-filters">
+        {categories.map(category => (
+          <button
+            key={category}
+            className={`filter-btn ${filter === category ? 'active' : ''}`}
+            onClick={() => setFilter(category)}
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </button>
+        ))}
+      </div>
+
       <div className="portfolio-grid">
-        {portfolioItems.map((item) => (
-          <div className="portfolio-card" key={item.id}>
-            <a href={item.link} target="_blank" rel="noopener noreferrer">
-              <img src={item.img} alt={item.title} />
-            </a>
+        {filteredPortfolios.map((item) => (
+          <div className="portfolio-card" key={item._id}>
+            <div className="portfolio-image">
+              <img src={item.image} alt={item.title} />
+              <div className="portfolio-overlay">
+                <div className="portfolio-links">
+                  {item.liveUrl && (
+                    <a href={item.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                      Live Demo
+                    </a>
+                  )}
+                  {item.githubUrl && (
+                    <a href={item.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                      GitHub
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
             <div className="portfolio-info">
               <h3>{item.title}</h3>
-              {item.author && <p>{item.author}</p>}
+              <p>{item.description}</p>
+              <div className="portfolio-tech">
+                {item.technologies.map((tech, index) => (
+                  <span key={index} className="tech-tag">{tech}</span>
+                ))}
+              </div>
             </div>
           </div>
         ))}
