@@ -22,7 +22,10 @@ const app = express()
 const server = createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: [
+      process.env.FRONTEND_URL || "http://localhost:3000",
+      "https://portfolio-app-kappa-red.vercel.app"
+    ],
     methods: ["GET", "POST"]
   }
 })
@@ -42,7 +45,7 @@ app.use("/api/", limiter)
 app.use(cors({
   origin: [
     process.env.FRONTEND_URL || "http://localhost:3000",
-    "https://your-frontend-name.onrender.com"
+    "https://portfolio-app-kappa-red.vercel.app"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
