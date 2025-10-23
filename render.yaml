@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: portfolio-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        fromDatabase:
+          name: portfolio-db
+          property: connectionString
+      - key: FRONTEND_URL
+        value: https://portfolio-frontend.onrender.com
+
+  - type: web
+    name: portfolio-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://portfolio-backend.onrender.com/api
+
+databases:
+  - name: portfolio-db
+    databaseName: portfolio
