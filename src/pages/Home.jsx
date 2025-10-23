@@ -78,34 +78,54 @@ function Home() {
           </div>
           
           <div className="hero-visual">
-            <div className="hero-card">
-              <div className="card-header">
-                <div className="card-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-              <div className="card-content">
-                <div className="profile-preview">
-                  <div className="profile-avatar">JD</div>
-                  <div className="profile-info">
-                    <h3>John Developer</h3>
-                    <p>Full Stack Developer</p>
+            <div className="hero-image-stack">
+              <div className="hero-card main-card">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop&crop=faces" alt="Developer workspace" className="card-image" />
+                <div className="card-overlay">
+                  <div className="profile-preview">
+                    <div className="profile-avatar">
+                      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Profile" />
+                    </div>
+                    <div className="profile-info">
+                      <h3>Alex Johnson</h3>
+                      <p>Full Stack Developer</p>
+                    </div>
                   </div>
                 </div>
-                <div className="skills-preview">
-                  <span className="skill-tag">React</span>
-                  <span className="skill-tag">Node.js</span>
-                  <span className="skill-tag">Python</span>
-                </div>
-                <div className="projects-preview">
-                  <div className="project-item">
-                    <div className="project-icon">🚀</div>
-                    <div className="project-details">
-                      <h4>E-commerce Platform</h4>
-                      <p>Full-stack web application</p>
+              </div>
+              
+              <div className="hero-card floating-card">
+                <div className="card-content">
+                  <div className="project-showcase">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&h=120&fit=crop" alt="Project" className="project-thumb" />
+                    <div className="project-info">
+                      <h4>E-commerce App</h4>
+                      <div className="project-stats">
+                        <span>⭐ 4.9</span>
+                        <span>👀 2.1k</span>
+                      </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="hero-card skills-card">
+                <div className="skills-header">
+                  <span className="skills-icon">🎯</span>
+                  <span>Skills</span>
+                </div>
+                <div className="skills-list">
+                  <div className="skill-item">
+                    <span>React</span>
+                    <div className="skill-bar"><div className="skill-fill" style={{width: '90%'}}></div></div>
+                  </div>
+                  <div className="skill-item">
+                    <span>Node.js</span>
+                    <div className="skill-bar"><div className="skill-fill" style={{width: '85%'}}></div></div>
+                  </div>
+                  <div className="skill-item">
+                    <span>Python</span>
+                    <div className="skill-bar"><div className="skill-fill" style={{width: '80%'}}></div></div>
                   </div>
                 </div>
               </div>
@@ -152,6 +172,135 @@ function Home() {
               </div>
               <h3>Real-time Updates</h3>
               <p>Keep your portfolio fresh with instant updates and seamless content management.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Showcase Section */}
+      <section className="showcase">
+        <div className="container">
+          <div className="section-header">
+            <h2>Portfolio Showcase</h2>
+            <p>See what amazing portfolios our users have created</p>
+          </div>
+          
+          <div className="showcase-grid">
+            <div className="showcase-item">
+              <div className="showcase-image">
+                <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=400&h=300&fit=crop" alt="Portfolio 1" />
+                <div className="showcase-overlay">
+                  <div className="showcase-info">
+                    <h4>Sarah Chen</h4>
+                    <p>UX Designer</p>
+                  </div>
+                  <div className="showcase-stats">
+                    <span>👀 5.2k views</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="showcase-item">
+              <div className="showcase-image">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop" alt="Portfolio 2" />
+                <div className="showcase-overlay">
+                  <div className="showcase-info">
+                    <h4>Mike Rodriguez</h4>
+                    <p>Frontend Developer</p>
+                  </div>
+                  <div className="showcase-stats">
+                    <span>👀 3.8k views</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="showcase-item">
+              <div className="showcase-image">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=300&fit=crop" alt="Portfolio 3" />
+                <div className="showcase-overlay">
+                  <div className="showcase-info">
+                    <h4>Emma Wilson</h4>
+                    <p>Data Scientist</p>
+                  </div>
+                  <div className="showcase-stats">
+                    <span>👀 4.1k views</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Testimonials Section */}
+      <section className="testimonials">
+        <div className="container">
+          <div className="section-header">
+            <h2>What Our Users Say</h2>
+            <p>Join thousands of satisfied creators</p>
+          </div>
+          
+          <div className="testimonials-grid">
+            <div className="testimonial-card">
+              <div className="testimonial-content">
+                <div className="quote-icon">“</div>
+                <p>This platform helped me land my dream job! The portfolio builder is incredibly intuitive and the results look professional.</p>
+              </div>
+              <div className="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face" alt="Jessica" />
+                <div>
+                  <h4>Jessica Park</h4>
+                  <p>Software Engineer at Google</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="testimonial-card">
+              <div className="testimonial-content">
+                <div className="quote-icon">“</div>
+                <p>Amazing templates and customization options. I've received multiple job offers since creating my portfolio here.</p>
+              </div>
+              <div className="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="David" />
+                <div>
+                  <h4>David Kim</h4>
+                  <p>Product Designer at Spotify</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="testimonial-card">
+              <div className="testimonial-content">
+                <div className="quote-icon">“</div>
+                <p>The best investment I made for my career. Clean, modern designs that really showcase my work effectively.</p>
+              </div>
+              <div className="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face" alt="Maria" />
+                <div>
+                  <h4>Maria Garcia</h4>
+                  <p>Freelance Developer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="cta">
+        <div className="container">
+          <div className="cta-content">
+            <h2>Ready to Build Your Portfolio?</h2>
+            <p>Join thousands of professionals who've already transformed their careers</p>
+            <div className="cta-actions">
+              <Link to="/signup" className="btn btn-primary btn-lg">
+                Start Building Now
+              </Link>
+              <Link to="/portfolio" className="btn btn-outline btn-lg">
+                View Examples
+              </Link>
             </div>
           </div>
         </div>
