@@ -40,7 +40,10 @@ app.use("/api/", limiter)
 
 // CORS middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  origin: [
+    process.env.FRONTEND_URL || "http://localhost:3000",
+    "https://your-frontend-name.onrender.com"
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -101,8 +104,8 @@ io.on('connection', (socket) => {
 // Make io available to routes
 app.set('io', io)
 
-const PORT = process.env.PORT || 5000
-server.listen(PORT, () => {
+const PORT = process.env.PORT || 10000
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`)
   console.log(`Environment: ${process.env.NODE_ENV || "development"}`)
 })

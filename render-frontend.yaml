@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: portfolio-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://portfolio-app-1-iv35.onrender.com/api
