@@ -23,10 +23,10 @@ function Portfolio() {
   };
 
   const filteredPortfolios = portfolios.filter(item => 
-    filter === 'all' || item.category === filter
+    filter === 'all' || (item.category && item.category.toLowerCase() === filter.toLowerCase())
   );
 
-  const categories = ['all', ...new Set(portfolios.map(p => p.category))];
+  const categories = ['all', ...new Set(portfolios.map(p => p.category).filter(Boolean))];
 
   if (loading) {
     return <div className="loading">Loading portfolios...</div>;
@@ -46,7 +46,7 @@ function Portfolio() {
             className={`filter-btn ${filter === category ? 'active' : ''}`}
             onClick={() => setFilter(category)}
           >
-            {category.charAt(0).toUpperCase() + category.slice(1)}
+            {category && category.charAt(0).toUpperCase() + category.slice(1)}
           </button>
         ))}
       </div>
@@ -75,7 +75,7 @@ function Portfolio() {
               <h3>{item.title}</h3>
               <p>{item.description}</p>
               <div className="portfolio-tech">
-                {item.technologies.map((tech, index) => (
+                {item.technologies && item.technologies.map((tech, index) => (
                   <span key={index} className="tech-tag">{tech}</span>
                 ))}
               </div>
