@@ -1,0 +1,110 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+    
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Run backend linting
+      run: |
+        cd backend
+        npm run lint --if-present
+    
+    - name: Run backend tests
+      run: |
+        cd backend
+        npm test --if-present
+      env:
+        NODE_ENV: test
+        JWT_SECRET: test-secret-key
+        MONGODB_URI: mongodb://localhost:27017/portfolio-test
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install frontend dependencies
+      run: npm ci
+    
+    - name: Run frontend linting
+      run: npm run lint --if-present
+    
+    - name: Run frontend tests
+      run: npm test --if-present
+    
+    - name: Build frontend
+      run: npm run build
+      env:
+        VITE_API_URL: http://localhost:5000/api
+
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run security audit (backend)
+      run: |
+        cd backend
+        npm audit --audit-level moderate
+    
+    - name: Run security audit (frontend)
+      run: npm audit --audit-level moderate
+
+  deploy-backend:
+    needs: [test-backend, security-scan]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Deploy to Render
+      run: |
+        echo "Backend deployment triggered automatically by Render"
+        echo "Deployment URL: ${{ secrets.RENDER_BACKEND_URL }}"
+
+  deploy-frontend:
+    needs: [test-frontend, security-scan]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Deploy to Vercel
+      run: |
+        echo "Frontend deployment triggered automatically by Vercel"
+        echo "Deployment URL: ${{ secrets.VERCEL_FRONTEND_URL }}"
