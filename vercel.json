@@ -1,0 +1,10 @@
+{
+  "env": {
+    "VITE_API_URL": "https://portfolio-app-1-iv35.onrender.com/api"
+  },
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://portfolio-app-1-iv35.onrender.com/api"
+    }
+  }
+}
