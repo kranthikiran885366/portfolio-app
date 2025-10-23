@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../services/api";
+import { projectAPI } from "../services/api";
 import "./Portfolio.css";
 
 function Portfolio() {
@@ -13,8 +13,8 @@ function Portfolio() {
 
   const fetchPortfolios = async () => {
     try {
-      const response = await api.get('/projects');
-      setPortfolios(response.data);
+      const response = await projectAPI.getAllProjects();
+      setPortfolios(response.data || response);
     } catch (error) {
       console.error('Error fetching projects:', error);
     } finally {
